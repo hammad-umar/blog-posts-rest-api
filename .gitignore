@@ -1,0 +1,8 @@
+node_modules/
+dist/
+prisma/*.db
+# Keep environment variables out of version control
+*.env
+*.http
+
+notes.txt
