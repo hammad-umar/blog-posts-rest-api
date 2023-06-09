@@ -7,9 +7,7 @@ import { NotFoundError } from 'routing-controllers'
 
 @Service()
 export class CategoryService {
-  constructor(
-    @Inject(constants.PRISMA_CLIENT) private readonly prisma: PrismaClient
-  ) {}
+  constructor(@Inject(constants.PRISMA_CLIENT) private readonly prisma: PrismaClient) {}
 
   async find(): Promise<Category[]> {
     return this.prisma.category.findMany()
@@ -39,10 +37,7 @@ export class CategoryService {
     return this.prisma.category.delete({ where: { id } })
   }
 
-  async update(
-    id: string,
-    updateCategoryDto: UpdateCategoryDto
-  ): Promise<Category> {
+  async update(id: string, updateCategoryDto: UpdateCategoryDto): Promise<Category> {
     await this.findOne(id)
 
     return await this.prisma.category.update({
