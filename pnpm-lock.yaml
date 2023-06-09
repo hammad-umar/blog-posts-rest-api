@@ -43,6 +43,9 @@ dependencies:
   typedi:
     specifier: ^0.10.0
     version: 0.10.0
+  znv:
+    specifier: ^0.3.2
+    version: 0.3.2(zod@3.21.4)
   zod:
     specifier: ^3.21.4
     version: 3.21.4
@@ -2359,6 +2362,15 @@ packages:
     resolution: {integrity: sha512-Ux4ygGWsu2c7isFWe8Yu1YluJmqVhxqK2cLXNQA5AcC3QfbGNpM7fu0Y8b/z16pXLnFxZYvWhd3fhBY9DLmC6Q==}
     engines: {node: '>=6'}
     dev: true
+
+  /znv@0.3.2(zod@3.21.4):
+    resolution: {integrity: sha512-dyQ2gfDe5RgEL7hKue1dFswmy4vzb/SRnLLRHaHNm39JteKstFs47I0nevlEa3oOWNMJ7XB4V1l/IdcLezPwoA==}
+    peerDependencies:
+      zod: ^3.11.6
+    dependencies:
+      colorette: 2.0.20
+      zod: 3.21.4
+    dev: false
 
   /zod@3.21.4:
     resolution: {integrity: sha512-m46AKbrzKVzOzs/DZgVnG5H55N1sv1M8qZU3A8RIKbs3mrACDNeIOeilDymVb2HdmP8uwshOCF4uJ8uM9rCqJw==}

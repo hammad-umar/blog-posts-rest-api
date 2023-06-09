@@ -25,6 +25,7 @@
     "reflect-metadata": "^0.1.13",
     "routing-controllers": "^0.10.4",
     "typedi": "^0.10.0",
+    "znv": "^0.3.2",
     "zod": "^3.21.4"
   },
   "devDependencies": {

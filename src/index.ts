@@ -1,7 +1,8 @@
 import app from './server'
 import log from './helpers/logger'
+import { PORT } from './env'
 
-const port = process.env.PORT || 1337
+const port = PORT || 1337
 
 const server = app.listen(port, () => {
   log.info(`Server is up on port:${port}`)
