@@ -1,12 +1,4 @@
-import {
-  Body,
-  Delete,
-  Get,
-  JsonController,
-  Param,
-  Patch,
-  Post,
-} from 'routing-controllers'
+import { Body, Delete, Get, JsonController, Param, Patch, Post } from 'routing-controllers'
 import { Service } from 'typedi'
 import { CategoryService } from '../services/category.service'
 import { CreateCategoryDto } from '../dtos/category/create-category.dto'
@@ -33,10 +25,7 @@ export class CategoryController {
   }
 
   @Patch('/:id')
-  updateCategory(
-    @Param('id') id: string,
-    @Body() updateCategoryDto: UpdateCategoryDto
-  ) {
+  updateCategory(@Param('id') id: string, @Body() updateCategoryDto: UpdateCategoryDto) {
     return this.categoryService.update(id, updateCategoryDto)
   }
 
