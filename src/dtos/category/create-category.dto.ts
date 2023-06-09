@@ -24,6 +24,7 @@ import { IsNotEmpty, IsString } from 'class-validator'
  *          type: string
  *        updatedAt:
  *          type: string
+ *
  */
 export class CreateCategoryDto {
   @IsString()
