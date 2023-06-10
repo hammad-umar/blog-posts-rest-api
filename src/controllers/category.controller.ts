@@ -1,4 +1,4 @@
-import { Body, Delete, Get, JsonController, Param, Patch, Post } from 'routing-controllers'
+import { Body, Delete, Get, JsonController, Param, Patch, Post, HttpCode } from 'routing-controllers'
 import { Service } from 'typedi'
 import { CategoryService } from '../services/category.service'
 import { CreateCategoryDto } from '../dtos/category/create-category.dto'
@@ -31,6 +31,7 @@ export class CategoryController {
    *              $ref: '#/components/schemas/CreateCategoryResponseDto'
    */
   @Post()
+  @HttpCode(201)
   createCategory(@Body() createCategoryDto: CreateCategoryDto) {
     return this.categoryService.create(createCategoryDto)
   }
