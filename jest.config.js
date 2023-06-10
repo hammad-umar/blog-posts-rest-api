@@ -12,4 +12,6 @@ module.exports = {
   transform: {
     '^.+\\.(ts|tsx)$': 'ts-jest',
   },
+
+  setupFilesAfterEnv: ['<rootDir>/src/__tests__/setup-jest.ts'],
 }

@@ -11,7 +11,7 @@ import prisma from './libs/prisma'
 import { constants } from './constants'
 import { CategoryController } from './controllers/category.controller'
 
-dotenv.config()
+dotenv.config({ path: `.env.${process.env.NODE_ENV}` })
 const app = express()
 
 app.use(cors())
