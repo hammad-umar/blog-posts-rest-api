@@ -10,8 +10,9 @@ import { useExpressServer, useContainer } from 'routing-controllers'
 import prisma from './libs/prisma'
 import { constants } from './constants'
 import { CategoryController } from './controllers/category.controller'
+import { AuthController } from './controllers/auth.controller'
 
-dotenv.config({ path: `.env.${process.env.NODE_ENV}` })
+dotenv.config()
 const app = express()
 
 app.use(cors())
@@ -25,7 +26,7 @@ useContainer(Container)
 useExpressServer(app, {
   routePrefix: '/api/v1',
   validation: { whitelist: true },
-  controllers: [CategoryController],
+  controllers: [CategoryController, AuthController],
 })
 
 /**
