@@ -2,7 +2,7 @@ node_modules/
 dist/
 prisma/*.db
 # Keep environment variables out of version control
-.env.*
+*.env
 *.http
 
 notes.txt

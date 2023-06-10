@@ -69,4 +69,19 @@ describe('e2e Category', () => {
       expect(res.statusCode).toEqual(400)
     })
   })
+
+  describe('DELETE /api/v1/category', () => {
+    it('should return 200 status code and deleted category object if valid id provided', async () => {
+      const res = await request(app).delete(`/api/v1/category/${validId}`)
+
+      expect(res.statusCode).toEqual(200)
+      expect(res.body).toBeDefined()
+    })
+
+    it('should return 404 status code if invalid id provided', async () => {
+      const res = await request(app).delete(`/api/v1/category/${inValidId}`)
+
+      expect(res.statusCode).toEqual(404)
+    })
+  })
 })
