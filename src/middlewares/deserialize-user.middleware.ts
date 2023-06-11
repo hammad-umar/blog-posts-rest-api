@@ -24,7 +24,6 @@ export class DeserializeUserMiddleware implements ExpressMiddlewareInterface {
     }
 
     if (refreshToken && expired) {
-      console.log('aaaa')
       const newAccessToken = await this.sessionService.reIssueAccessToken({ refreshToken })
 
       if (newAccessToken) {
