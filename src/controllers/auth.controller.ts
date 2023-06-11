@@ -6,7 +6,6 @@ import { LoginUserDto } from '../dtos/user/login-user.dto'
 import { Request, Response } from 'express'
 import { RequireUserMiddleware } from '../middlewares/require-user.middleware'
 import { User } from '@prisma/client'
-import { omit } from 'lodash'
 
 @Service()
 @JsonController('/auth')
