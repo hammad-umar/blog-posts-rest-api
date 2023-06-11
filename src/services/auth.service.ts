@@ -8,7 +8,7 @@ import { SessionService } from './session.service'
 import { LoginUserDto } from '../dtos/user/login-user.dto'
 import { Request } from 'express'
 import { generateJwtToken } from '../helpers/jwt'
-import { ACCESS_TOKEN_TTL, REFRESH_TOKEN_TTL } from '../env'
+import { ACCESS_TOKEN_TTL, REFRESH_TOKEN_TTL, SALT_WORK_FACTOR } from '../env'
 import { ILoginResponse } from '../interfaces/login-response.interface'
 
 @Service()
@@ -29,7 +29,7 @@ export class AuthService {
       throw new HttpError(409, 'Email is already taken!')
     }
 
-    const saltOrRounds = await genSalt(10)
+    const saltOrRounds = await genSalt(SALT_WORK_FACTOR)
     const hashedPassword = await hash(createUserDto.password, saltOrRounds)
 
     return this.prisma.user.create({

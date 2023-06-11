@@ -3,20 +3,36 @@ import { Service } from 'typedi'
 import { NextFunction, Request, Response } from 'express'
 import { ExpressMiddlewareInterface, Middleware } from 'routing-controllers'
 import { verifyJwtToken } from '../helpers/jwt'
+import { SessionService } from '../services/session.service'
 
 @Service()
 @Middleware({ type: 'before' })
 export class DeserializeUserMiddleware implements ExpressMiddlewareInterface {
-  use(req: Request, res: Response, next: NextFunction) {
-    const accessToken = get(req, 'headers.authorization', '').replace(/^Bearer\s/, '')
+  constructor(private readonly sessionService: SessionService) {}
 
-    if (!accessToken) {
+  async use(req: Request, res: Response, next: NextFunction): Promise<void> {
+    const accessToken = get(req, 'headers.authorization', '').replace(/^Bearer\s/, '')
+    const refreshToken = get(req, 'headers.x-refresh', '') as string
+
+    if (!accessToken) return next()
+
+    const { decoded, expired } = verifyJwtToken(accessToken)
+
+    if (decoded) {
+      res.locals.user = decoded
       return next()
     }
 
-    const { decoded } = verifyJwtToken(accessToken)
+    if (refreshToken && expired) {
+      console.log('aaaa')
+      const newAccessToken = await this.sessionService.reIssueAccessToken({ refreshToken })
 
-    if (decoded) {
+      if (newAccessToken) {
+        res.setHeader('x-access-token', newAccessToken as string)
+      }
+
+      const { decoded } = verifyJwtToken(newAccessToken as string)
+
       res.locals.user = decoded
       return next()
     }
