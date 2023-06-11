@@ -11,6 +11,7 @@ import prisma from './libs/prisma'
 import { constants } from './constants'
 import { CategoryController } from './controllers/category.controller'
 import { AuthController } from './controllers/auth.controller'
+import { DeserializeUserMiddleware } from './middlewares/deserialize-user.middleware'
 
 dotenv.config()
 const app = express()
@@ -27,6 +28,7 @@ useExpressServer(app, {
   routePrefix: '/api/v1',
   validation: { whitelist: true },
   controllers: [CategoryController, AuthController],
+  middlewares: [DeserializeUserMiddleware],
 })
 
 /**
