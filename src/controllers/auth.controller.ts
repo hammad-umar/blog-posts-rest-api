@@ -49,6 +49,6 @@ export class AuthController {
   @Get('/profile')
   @UseBefore(RequireUserMiddleware)
   async getProfile(@CurrentUser() user: User) {
-    return omit(user, 'password')
+    return user
   }
 }

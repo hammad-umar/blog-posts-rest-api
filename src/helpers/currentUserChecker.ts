@@ -1,5 +1,6 @@
 import { Action } from 'routing-controllers'
 import prisma from '../libs/prisma'
+import { omit } from 'lodash'
 
 export const currentUserChecker = async (action: Action) => {
   const { response } = action
@@ -12,6 +13,6 @@ export const currentUserChecker = async (action: Action) => {
       },
     })
 
-    return user
+    return omit(user, 'password')
   }
 }
