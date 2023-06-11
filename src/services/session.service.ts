@@ -18,4 +18,8 @@ export class SessionService {
   async find(filterQuery: Prisma.SessionWhereInput): Promise<Session[]> {
     return this.prisma.session.findMany({ where: filterQuery })
   }
+
+  async update(sessionId: string, updateQuery: Prisma.SessionUpdateInput): Promise<Session> {
+    return this.prisma.session.update({ where: { id: sessionId }, data: updateQuery })
+  }
 }

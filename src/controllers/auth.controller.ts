@@ -25,8 +25,14 @@ export class AuthController {
 
   @Get('/logout')
   @UseBefore(RequireUserMiddleware)
-  logout() {
-    //
+  async logout(@Res() res: Response) {
+    const sessionId = res.locals.user.sessionId
+    await this.authService.logout(sessionId)
+
+    return {
+      accessToken: null,
+      refreshToken: null,
+    }
   }
 
   @Get('/sessions')

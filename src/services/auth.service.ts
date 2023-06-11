@@ -94,6 +94,10 @@ export class AuthService {
     return { accessToken, refreshToken }
   }
 
+  async logout(sessionId: string): Promise<Session> {
+    return this.sessionService.update(sessionId, { valid: false })
+  }
+
   async getSessions(userId: string): Promise<Session[]> {
     return this.sessionService.find({ userId, valid: true })
   }
