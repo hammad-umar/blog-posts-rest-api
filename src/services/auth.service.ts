@@ -101,4 +101,8 @@ export class AuthService {
   async getSessions(userId: string): Promise<Session[]> {
     return this.sessionService.find({ userId, valid: true })
   }
+
+  async findUser(userId: string) {
+    return this.prisma.user.findUnique({ where: { id: userId } })
+  }
 }

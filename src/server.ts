@@ -12,6 +12,7 @@ import { constants } from './constants'
 import { CategoryController } from './controllers/category.controller'
 import { AuthController } from './controllers/auth.controller'
 import { DeserializeUserMiddleware } from './middlewares/deserialize-user.middleware'
+import { currentUserChecker } from './helpers/currentUserChecker'
 
 dotenv.config()
 const app = express()
@@ -29,6 +30,7 @@ useExpressServer(app, {
   validation: { whitelist: true },
   controllers: [CategoryController, AuthController],
   middlewares: [DeserializeUserMiddleware],
+  currentUserChecker,
 })
 
 /**

@@ -1,10 +1,12 @@
 import { Service } from 'typedi'
-import { Body, Get, HttpCode, JsonController, Post, Req, Res, UseBefore } from 'routing-controllers'
+import { Body, CurrentUser, Get, HttpCode, JsonController, Post, Req, Res, UseBefore } from 'routing-controllers'
 import { CreateUserDto } from '../dtos/user/create-user.dto'
 import { AuthService } from '../services/auth.service'
 import { LoginUserDto } from '../dtos/user/login-user.dto'
 import { Request, Response } from 'express'
 import { RequireUserMiddleware } from '../middlewares/require-user.middleware'
+import { User } from '@prisma/client'
+import { omit } from 'lodash'
 
 @Service()
 @JsonController('/auth')
@@ -42,5 +44,11 @@ export class AuthController {
     const sessions = await this.authService.getSessions(userId)
 
     return sessions
+  }
+
+  @Get('/profile')
+  @UseBefore(RequireUserMiddleware)
+  async getProfile(@CurrentUser() user: User) {
+    return omit(user, 'password')
   }
 }
