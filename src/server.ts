@@ -13,6 +13,7 @@ import { CategoryController } from './controllers/category.controller'
 import { AuthController } from './controllers/auth.controller'
 import { DeserializeUserMiddleware } from './middlewares/deserialize-user.middleware'
 import { currentUserChecker } from './helpers/currentUserChecker'
+import { NODE_ENV } from './env'
 
 dotenv.config()
 const app = express()
@@ -27,6 +28,7 @@ useContainer(Container)
 // Setup existing app with routing controllers.
 useExpressServer(app, {
   routePrefix: '/api/v1',
+  development: NODE_ENV === 'development',
   validation: { whitelist: true },
   controllers: [CategoryController, AuthController],
   middlewares: [DeserializeUserMiddleware],

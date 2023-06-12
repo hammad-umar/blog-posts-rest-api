@@ -45,9 +45,20 @@ model User {
   password       String
   isEmailVerfied Boolean   @default(false)
   role           Role      @default(SUBSCRIBER)
+  sessions       Session[]
+  avatar         Avatar?
   createdAt      DateTime  @default(now())
   updatedAt      DateTime  @updatedAt
-  sessions       Session[]
+}
+
+model Avatar {
+  id        String @id @default(uuid())
+  publicId  String
+  secureUrl String
+  userId    String @unique
+  user      User   @relation(fields: [userId], references: [id])
+
+  @@index([userId])
 }
 
 model Session {
