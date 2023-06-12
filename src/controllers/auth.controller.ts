@@ -1,11 +1,25 @@
 import { Service } from 'typedi'
-import { Body, CurrentUser, Get, HttpCode, JsonController, Post, Req, Res, UseBefore } from 'routing-controllers'
+import {
+  Body,
+  CurrentUser,
+  Delete,
+  Get,
+  HttpCode,
+  JsonController,
+  Patch,
+  Post,
+  Req,
+  Res,
+  UploadedFile,
+  UseBefore,
+} from 'routing-controllers'
+import { User } from '@prisma/client'
+import { Request, Response, Express } from 'express'
 import { CreateUserDto } from '../dtos/user/create-user.dto'
 import { AuthService } from '../services/auth.service'
 import { LoginUserDto } from '../dtos/user/login-user.dto'
-import { Request, Response } from 'express'
 import { RequireUserMiddleware } from '../middlewares/require-user.middleware'
-import { User } from '@prisma/client'
+import { UpdateUserDto } from '../dtos/user/update-user.dto'
 
 @Service()
 @JsonController('/auth')
@@ -49,5 +63,23 @@ export class AuthController {
   @UseBefore(RequireUserMiddleware)
   async getProfile(@CurrentUser() user: User) {
     return user
+  }
+
+  @Patch('/profile/update')
+  @UseBefore(RequireUserMiddleware)
+  async updateProfileDetails(@CurrentUser() user: User, @Body() updateUserDto: UpdateUserDto) {
+    return this.authService.updateProfileDetails(user.id, updateUserDto)
+  }
+
+  @Patch('/profile/avatar')
+  @UseBefore(RequireUserMiddleware)
+  async updateProfileAvatar(@UploadedFile('avatar') avatar: Express.Multer.File, @CurrentUser() user: User) {
+    return this.authService.updateProfileAvatar(user.id, avatar)
+  }
+
+  @Delete('/profile/avatar')
+  @UseBefore(RequireUserMiddleware)
+  async deleteProfileAvatar(@CurrentUser() user: User) {
+    return this.authService.deleteProfileAvatar(user.id)
   }
 }
